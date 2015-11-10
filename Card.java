@@ -7,7 +7,9 @@ public class Card {
 	private int number;
 	private int[] attributes;
 	
-	public Card() {	}
+	public Card() {	
+		this.attributes = new int[4];
+	}
 	
 	public Card(int color, int shape, int shading, int number) {
 		this.color = color;
@@ -30,23 +32,24 @@ public class Card {
 
 	public void setColor(int color) {
 		this.color = color;
+		this.attributes[0] = color;
 	}
 
 	public void setShape(int shape) {
 		this.shape = shape;
+		this.attributes[1] = shape;
 	}
 
 	public void setShading(int shading) {
 		this.shading = shading;
+		this.attributes[2] = shading;
 	}
 
 	public void setNumber(int number) {
 		this.number = number;
+		this.attributes[3] = number;
 	}
 
-	public void setAttributes(int[] attributes) {
-		this.attributes = attributes;
-	}
 
 	public int getShape() {
 		return shape;
