@@ -1,13 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-
 
 public class Player {
 	
-	
-
 	public static boolean isSet(Card card1, Card card2, Card card3) {
 		// returns true if the three cards make a set and false otherwise
 		return (isAllSame(card1,card2,card3) || isAllDifferent(card1,card2,card3));
