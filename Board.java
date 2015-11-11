@@ -21,7 +21,6 @@ public class Board {
 		return cards;
 	}
 	
-
 	public void setCards(ArrayList<Card> cards) {
 		this.cards = cards;
 	}
@@ -37,20 +36,4 @@ public class Board {
 		this.cards.addAll(cards);
 		}
 	}
-	
-	public void showCards() {
-		if (cards == null) {
-			System.out.println("There are no cards on the board");
-			return;
-		} 
-		
-		
-		System.out.println("Cards on the board include: ");
-		for (Card card: cards) {
-			System.out.println("[" + card.getColor() + "," + card.getShape() + "," + card.getShading() + "," + card.getNumber() + "]"  );
-		}
-	}
-	
-
-
 }

@@ -5,24 +5,16 @@ import java.util.LinkedList;
 
 
 public class Player {
-
-	//Deck deck;
-	//Board board;
-
-	public Player() {
-		//this.deck = new Deck();
-		//this.board = new Board();
-		//board.setCards(deck.dealCards(12));
-		//board.showCards();
-	}
+	
+	
 
 	public static boolean isSet(Card card1, Card card2, Card card3) {
+		// returns true if the three cards make a set and false otherwise
 		return (isAllSame(card1,card2,card3) || isAllDifferent(card1,card2,card3));
 	}
 
 	private static boolean isAllSame(Card card1, Card card2, Card card3) {
 		// returns true if all 4 attributes of each card are the same and false otherwise
-
 		int[] attr1 = card1.getAttributes();
 		int[] attr2 = card2.getAttributes();
 		int[] attr3 = card3.getAttributes();
@@ -44,14 +36,17 @@ public class Player {
 		return true;
 	}
 
-	public static HashMap<Integer, Card> findSet(Board board) {
+	public static ArrayList<Card> findSet(Board board) {
+		// returns 3 cards that make up a set given a board of cards
+		// returns null if no sets found on the board
+		
 		ArrayList<Card> cards = board.getCards();
-		if (cards == null || cards.size() == 0 ) return null;
-
 		int n = cards.size();
-		int count = 0;
+		if (cards == null || n == 0 ) return null;
+	
 		Card card1,card2,card3;
 
+		// loops through every combination of 3 cards
 		for (int i=0; i <= n - 3; i++) {
 			card1 = cards.get(i);
 
@@ -60,15 +55,14 @@ public class Player {
 
 				for (int k=j+1; k <= n - 1; k++) {
 					card3 = cards.get(k);
-					count ++;
 
 					if (isSet(card1,card2,card3)) {
-						HashMap<Integer, Card> set = new HashMap<Integer,Card>();
-						set.put(i, card1);
-						set.put(j, card2);
-						set.put(k, card3);
-
-
+						ArrayList<Card> set = new ArrayList<Card>();
+						set.add(card1);
+						set.add(card2);
+						set.add(card3);
+						
+						// remove set of cards from board
 						cards.remove(k);
 						cards.remove(j);
 						cards.remove(i);
@@ -78,50 +72,37 @@ public class Player {
 				}
 			}
 		}
-		System.out.println(count);
 		return null;
 	}
-
-	public static ArrayList<ArrayList<Card> > completeGame() {
+	
+	public static ArrayList<ArrayList<Card>> completeGame() {
+		// creates a board and deck of cards, completes a game of Set
+		// and returns list of sets
+		
 		ArrayList<ArrayList<Card>> sets = new ArrayList<ArrayList<Card>>();
-		HashMap<Integer, Card> setMap = new HashMap<Integer, Card>();
-		ArrayList<Card> set = new ArrayList<Card>();
+		
+		// initiate the game
 		Deck deck = new Deck();
+		Util.showCards(Util.DECK, deck.getCards());
 		Board board = new Board();
 		board.setCards(deck.dealCards(12)); // deal 12 cards from deck to board
+		Util.showCards(Util.BOARD,board.getCards());
+
+		ArrayList<Card> set = new ArrayList<Card>();
 		
+		// find all the sets!
 		while(true) {
-			setMap = findSet(board);
-			if (board.isEmpty() || setMap == null) {
+			set = findSet(board);
+			if (board.isEmpty() || set == null) {
 				if (deck.isEmpty()) {
 					return sets;
 				} else {
 					board.addCards(deck.deal());
 				}
 			} else {
-
-			//for (int key: setMap.keySet()) {
-				//board.getCards().remove(key);
-			//}
-			set = toList(setMap);
-			Test.showCards(set);
-			sets.add(set);
+				sets.add(set);
 			}
-
 		}
-
 	}
 
-
-
-
-
-private static ArrayList<Card> toList(HashMap<Integer, Card> cards) {
-	if (cards == null) return null;
-	ArrayList<Card> cardList = new ArrayList<Card>();
-	for (Card card: cards.values()) {
-		cardList.add(card);
-	}
-	return cardList;
-}
 }

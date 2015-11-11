@@ -16,10 +16,17 @@ public class Card {
 		this.shape = shape;
 		this.shading = shading;
 		this.number = number;
-		this.attributes = new int[]{color,shape,shading,number}; 
-				
+		this.attributes = new int[]{color,shape,shading,number}; 			
 	}
 	
+
+	public int getColor() {
+		return color;
+	}
+	
+	public int getShape() {
+		return shape;
+	}
 
 	public int getNumber() {
 		return number;
@@ -28,6 +35,13 @@ public class Card {
 
 	public int getShading() {
 		return shading;
+	}
+	
+	public int[] getAttributes() {
+		if (attributes == null) {
+			attributes = new int[]{this.color,this.shape,this.shading,this.number};
+		}
+		return attributes;
 	}
 
 	public void setColor(int color) {
@@ -48,23 +62,6 @@ public class Card {
 	public void setNumber(int number) {
 		this.number = number;
 		this.attributes[3] = number;
-	}
-
-
-	public int getShape() {
-		return shape;
-	}
-
-
-	public int getColor() {
-		return color;
-	}
-
-	public int[] getAttributes() {
-		if (attributes == null) {
-			attributes = new int[]{this.color,this.shape,this.shading,this.number};
-		}
-		return attributes;
 	}
 
 }
